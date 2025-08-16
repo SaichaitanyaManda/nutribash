@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriPlate - Craft Your Perfect Meal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="waveBackground" class="wave-background"></canvas>
+    <div class="background-gradient"></div>
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo-icon">🥗</div>
+                <h1>NutriPlate</h1>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
+                <span class="theme-icon">🌙</span>
+            </button>
+            <p class="tagline">Craft your perfect meal with nutrition insights</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="left-panel glass-effect">
+            <div class="panel-header">
+                <h2><span class="gradient-text">Choose Your Ingredients</span></h2>
+                <p class="subtitle">Select from our curated collection</p>
+            </div>
+            
+            <div class="search-filter-section">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search ingredients..." class="search-input">
+                    <span class="search-icon">🔍</span>
+                </div>
+                
+                <div class="filter-dropdown">
+                    <button class="dropdown-btn" id="filterDropdown">
+                        <span id="dropdownText">All Categories</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="dropdownContent">
+                        <div class="dropdown-item active" data-category="all">All Categories</div>
+                        <div class="dropdown-item" data-category="carbohydrates">Carbohydrates</div>
+                        <div class="dropdown-item" data-category="proteins">Proteins</div>
+                        <div class="dropdown-item" data-category="fats">Fats</div>
+                        <div class="dropdown-item" data-category="fiber">Fiber</div>
+                    </div>
+                </div>
+                
+                <button class="add-ingredient-btn" onclick="openAddIngredientModal()">
+                    <span>+</span> Add Ingredient
+                </button>
+            </div>
+
+            <div class="ingredients-grid" id="ingredientsGrid">
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="plate-analytics-section">
+                <div class="plate-section glass-effect">
+                    <div class="panel-header">
+                        <h2><span class="gradient-text">Your Plate</span></h2>
+                    </div>
+                    <div class="plate-container">
+                        <div class="plate-wrapper">
+                            <div class="circular-plate" id="plate">
+                                <div class="plate-inner">
+                                    <span class="plate-hint">Drag ingredients here</span>
+                                </div>
+                            </div>
+                            <div class="plate-shadow"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plate-info-section">
+                    <div class="total-weight-display" id="totalWeightDisplay">
+                        <div class="total-label">Total Weight</div>
+                        <div class="total-value">0g</div>
+                    </div>
+                    <button class="clear-plate-btn" onclick="clearPlate()" title="Clear Plate">
+                        ✕
+                    </button>
+                </div>
+            </div>
+
+            <div class="charts-analytics-section">
+                <div class="concurrent-chart-container glass-effect">
+                    <h3><span class="gradient-text">Nutrition Balance</span></h3>
+                    <div class="concurrent-chart-wrapper">
+                        <canvas id="concurrentChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="progress-bars-container">
+                    <div class="nutrition-progress" id="nutritionProgress">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="nutrient-name">🍞 Carbohydrates</span>
+                                <span class="progress-value" id="carbsValue">0% / 45%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill carbs-progress" id="carbsProgress"></div>
+                            </div>
+                            <div class="progress-recommendation" id="carbsRec"></div>
+                        </div>
+                        
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="nutrient-name">💪 Proteins</span>
+                                <span class="progress-value" id="proteinValue">0% / 25%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill protein-progress" id="proteinProgress"></div>
+                            </div>
+                            <div class="progress-recommendation" id="proteinRec"></div>
+                        </div>
+                        
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="nutrient-name">🥑 Fats</span>
+                                <span class="progress-value" id="fatsValue">0% / 20%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill fats-progress" id="fatsProgress"></div>
+                            </div>
+                            <div class="progress-recommendation" id="fatsRec"></div>
+                        </div>
+                        
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="nutrient-name">🥬 Fiber</span>
+                                <span class="progress-value" id="fiberValue">0% / 10%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill fiber-progress" id="fiberProgress"></div>
+                            </div>
+                            <div class="progress-recommendation" id="fiberRec"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recommendations-section glass-effect">
+                <div class="panel-header">
+                    <h3><span class="gradient-text">AI Recommendations</span></h3>
+                </div>
+                <div id="recommendations" class="recommendations-list">
+                    <p class="empty-state">Add ingredients to receive personalized nutrition insights</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Ingredient Modal -->
+    <div id="addIngredientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Ingredient</h3>
+                <span class="close" onclick="closeAddIngredientModal()">&times;</span>
+            </div>
+            <form id="addIngredientForm" onsubmit="addNewIngredient(event)">
+                <div class="form-group">
+                    <label for="ingredientName">Ingredient Name</label>
+                    <input type="text" id="ingredientName" name="ingredientName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ingredientCategory">Category</label>
+                    <select id="ingredientCategory" name="ingredientCategory" required>
+                        <option value="">Select category</option>
+                        <option value="carbohydrates">Carbohydrates</option>
+                        <option value="proteins">Proteins</option>
+                        <option value="fats">Fats</option>
+                        <option value="fiber">Fiber</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ingredientImage">Image</label>
+                    <input type="file" id="ingredientImage" name="ingredientImage" accept="image/*">
+                    <div class="image-preview" id="imagePreview"></div>
+                </div>
+                
+                <div class="nutrition-inputs">
+                    <h4>Nutrition Values (per 100g)</h4>
+                    <div class="nutrition-grid">
+                        <div class="form-group">
+                            <label for="calories">Calories</label>
+                            <input type="number" id="calories" name="calories" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="protein">Protein (g)</label>
+                            <input type="number" id="protein" name="protein" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="carbs">Carbs (g)</label>
+                            <input type="number" id="carbs" name="carbs" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fat">Fat (g)</label>
+                            <input type="number" id="fat" name="fat" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fiber">Fiber (g)</label>
+                            <input type="number" id="fiber" name="fiber" step="0.1" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" onclick="closeAddIngredientModal()" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Ingredient</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
