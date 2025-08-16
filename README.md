@@ -2,7 +2,7 @@
 
 > An interactive nutrition tracking web app that makes meal planning as satisfying as the meals themselves.
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Site-brightgreen?style=for-the-badge)](https://saichaitanyamanda.github.io/nutribash)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Site-brightgreen?style=for-the-badge)](https://nutribash.vercel.app/)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=flat-square&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![WebGL](https://img.shields.io/badge/WebGL-Shaders-red?style=flat-square&logo=opengl)](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
 [![Chart.js](https://img.shields.io/badge/Chart.js-Visualization-ff6384?style=flat-square&logo=chart.js)](https://www.chartjs.org/)
